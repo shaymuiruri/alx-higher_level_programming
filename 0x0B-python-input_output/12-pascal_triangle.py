@@ -1,24 +1,21 @@
 #!/usr/bin/python3
-"""
-Student
-Class
-"""
+"""Defines a Pascal's Triangle function."""
 
 
-class Student:
+def pascal_triangle(n):
+    """Represent Pascal's Triangle of size n.
 
-    def __init__(self, first_name, last_name, age):
-        """Constructor"""
-        self.first_name = first_name
-        self.last_name = last_name
-        self.age = age
+    Returns a list of lists of integers representing the triangle.
+    """
+    if n <= 0:
+        return []
 
-    def to_json(self, attrs=None):
-        """
-        Public method Retrieves a dictionary representation of a
-        Student instance
-        """
-        if (isinstance(attrs, list) and
-                all(isinstance(x, str) for x in attrs)):
-            return {x: getattr(self, x) for x in attrs if hasattr(self, x)}
-        return self.__dict__
+    triangles = [[1]]
+    while len(triangles) != n:
+        tri = triangles[-1]
+        tmp = [1]
+        for i in range(len(tri) - 1):
+            tmp.append(tri[i] + tri[i + 1])
+        tmp.append(1)
+        triangles.append(tmp)
+    return triangles
